@@ -386,6 +386,12 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
 			return err;
 
 		err = fscrypt_set_per_file_enc_key(ci, derived_key);
+		printk(KERN_ERR"fscrypt_set_per_file_enc_key_derived_key:\n");
+		for (int i=0;i<64;i++)
+		{
+			printk(KERN_ERR"%02x", derived_key[i]);
+		}
+		printk(KERN_ERR"\n");
 		memzero_explicit(derived_key, ci->ci_mode->keysize);
 	}
 	if (err)
