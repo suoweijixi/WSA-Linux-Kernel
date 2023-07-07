@@ -159,7 +159,12 @@ static int fname_decrypt(const struct inode *inode,
 
 	/* Initialize IV */
 	fscrypt_generate_iv(&iv, 0, ci);
-
+	printk(KERN_ERR"\nfname_decrypt_iv:");
+	for (int i = 0; i < 32; i++)
+	{
+		printk(KERN_ERR"%02x",iv.raw[i]);
+	}
+	printk(KERN_ERR"\n");
 	/* Create decryption request */
 	sg_init_one(&src_sg, iname->name, iname->len);
 	sg_init_one(&dst_sg, oname->name, oname->len);
