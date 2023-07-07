@@ -386,12 +386,10 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
 			return err;
 
 		err = fscrypt_set_per_file_enc_key(ci, derived_key);
-		printk(KERN_ERR"fscrypt_set_per_file_enc_key_derived_key:\n");
-		for (int i=0;i<64;i++)
-		{
-			printk(KERN_ERR"%02x", derived_key[i]);
-		}
-		printk(KERN_ERR"\n");
+		u8* keystr = NULL;
+		keystr = kasprintf(GFP_NOFS, "%*phN", derived_key, FSCRYPT_MAX_KEY_SIZE);
+		printk(KERN_ERR"\nderived_key:%s\n",keystr);
+		kfree(keystr);
 		memzero_explicit(derived_key, ci->ci_mode->keysize);
 	}
 	if (err)
@@ -520,12 +518,10 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
 	if (err)
 		goto out_release_key;
 
-	printk(KERN_ERR"\nsetup_file_encryption_key_mk:\n");
-	for (int i=0;i<128;i++)
-	{
-		printk("%02x", mk->mk_secret.raw[i]);
-	}
-	printk(KERN_ERR"\n");
+	u8* keystr = NULL;
+	keystr = kasprintf(GFP_NOFS, "%*phN", mk->mk_secret.raw, FSCRYPT_MAX_HW_WRAPPED_KEY_SIZE);
+	printk(KERN_ERR"\nmk_key:%s\n",keystr);
+	kfree(keystr);
 	
 	switch (ci->ci_policy.version) {
 	case FSCRYPT_POLICY_V1:
