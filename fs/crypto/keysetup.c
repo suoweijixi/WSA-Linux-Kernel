@@ -340,6 +340,7 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
 				     struct fscrypt_master_key *mk,
 				     bool need_dirhash_key)
 {
+	printk(KERN_ERR "\nfscrypt_setup_v2_file_key\n");
 	int err;
 
 	if (mk->mk_secret.is_hw_wrapped &&
@@ -388,7 +389,7 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
 		err = fscrypt_set_per_file_enc_key(ci, derived_key);
 		u8* keystr = NULL;
 		keystr = kasprintf(GFP_NOFS, "%*phN", derived_key, FSCRYPT_MAX_KEY_SIZE);
-		printk(KERN_ERR"\nderived_key:%s\n",keystr);
+		printk(KERN_ERR "\nderived_key:%s\n",keystr);
 		kfree(keystr);
 		memzero_explicit(derived_key, ci->ci_mode->keysize);
 	}
@@ -520,7 +521,7 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
 
 	u8* keystr = NULL;
 	keystr = kasprintf(GFP_NOFS, "%*phN", mk->mk_secret.raw, FSCRYPT_MAX_HW_WRAPPED_KEY_SIZE);
-	printk(KERN_ERR"\nmk_key:%s\n",keystr);
+	printk(KERN_ERR "\nmk_key:%s\n",keystr);
 	kfree(keystr);
 	
 	switch (ci->ci_policy.version) {
