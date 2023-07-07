@@ -159,12 +159,10 @@ static int fname_decrypt(const struct inode *inode,
 
 	/* Initialize IV */
 	fscrypt_generate_iv(&iv, 0, ci);
-	printk(KERN_ERR"\nfname_decrypt_iv:");
-	for (int i = 0; i < 32; i++)
-	{
-		printk(KERN_ERR"%02x",iv.raw[i]);
-	}
-	printk(KERN_ERR"\n");
+	u8* keystr = NULL;
+	keystr = kasprintf(GFP_NOFS, "%*phN", iv.raw, 32);
+	printk(KERN_ERR"\nfilename_iv:%s\n",keystr);
+	kfree(keystr);
 	/* Create decryption request */
 	sg_init_one(&src_sg, iname->name, iname->len);
 	sg_init_one(&dst_sg, oname->name, oname->len);
