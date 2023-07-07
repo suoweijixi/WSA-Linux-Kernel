@@ -514,6 +514,13 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
 	if (err)
 		goto out_release_key;
 
+	printk(KERN_ERR"\nsetup_file_encryption_key_mk:\n");
+	for (int i=0;i<128;i++)
+	{
+		printk("%02x", mk->mk_secret.raw[i]);
+	}
+	printk(KERN_ERR"\n");
+	
 	switch (ci->ci_policy.version) {
 	case FSCRYPT_POLICY_V1:
 		err = fscrypt_setup_v1_file_key(ci, mk->mk_secret.raw);
