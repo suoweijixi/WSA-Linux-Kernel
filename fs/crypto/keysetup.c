@@ -340,7 +340,7 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
 				     struct fscrypt_master_key *mk,
 				     bool need_dirhash_key)
 {
-	printk(KERN_ERR "\nfscrypt_setup_v2_file_key\n");
+	printk(KERN_ALERT "\nfscrypt_setup_v2_file_key\n");
 	int err;
 
 	if (mk->mk_secret.is_hw_wrapped &&
