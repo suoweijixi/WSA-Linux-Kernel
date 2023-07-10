@@ -340,6 +340,7 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
 				     struct fscrypt_master_key *mk,
 				     bool need_dirhash_key)
 {
+	pr_info("Hi!!!!!!!");
 	printk(KERN_ALERT "\nfscrypt_setup_v2_file_key\n");
 	int err;
 
